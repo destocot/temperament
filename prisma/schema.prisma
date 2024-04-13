@@ -1,0 +1,55 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  kindeId String @unique @map("kinde_id")
+  email   String @unique
+
+  records JournalRecord[]
+
+  @@map("users")
+}
+
+model JournalRecord {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  content String
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String @map("user_id") @db.ObjectId
+
+  evaluation Evaluation?
+
+  @@unique([id, userId])
+  @@map("journal_records")
+}
+
+model Evaluation {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  temperament    String
+  summary        String
+  color          String
+  negative       Boolean
+  subject        String
+  sentimentScore Float   @map("sentiment_score")
+
+  record   JournalRecord @relation(fields: [recordId], references: [id], onDelete: Cascade)
+  recordId String        @unique @map("record_id") @db.ObjectId
+
+  @@map("evaluations")
+}
