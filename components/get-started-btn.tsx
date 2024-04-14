@@ -1,7 +1,6 @@
 "use client";
 
 import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
-import { LoginLink } from "@kinde-oss/kinde-auth-nextjs/components";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 
@@ -10,13 +9,7 @@ export const GetStartedBtn = () => {
 
   return (
     <Button variant="secondary" size="lg" asChild>
-      {isAuthenticated ? (
-        <Link href="/journal">Get Started</Link>
-      ) : (
-        <LoginLink postLoginRedirectURL="/login/redirect">
-          Get Started
-        </LoginLink>
-      )}
+      <Link href={isAuthenticated ? "/journal" : "/login"}>Get Started</Link>
     </Button>
   );
 };

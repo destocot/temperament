@@ -62,9 +62,14 @@ export const askQuestion = async (question: string) => {
     );
 
     if (res.ok) {
-      const data = await res.json();
-      return data.data;
+      const json = await res.json();
+      if (json.error) {
+        throw new Error(json.error);
+      }
+      return json.data;
     }
+  } catch (err) {
+    throw err;
   } finally {
     isUpdating = false;
   }

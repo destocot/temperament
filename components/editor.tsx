@@ -27,7 +27,8 @@ export const Editor = ({ record }: EditorProps) => {
   return (
     <div className="relative w-full grow">
       <textarea
-        className="scrollbar h-full w-full resize-none bg-gray-100/[0.02] px-10 py-5 text-lg opacity-80 outline-none sm:text-xl"
+        className="scrollbar h-full w-full resize-none bg-gray-100/[0.02] px-10 py-5 text-lg opacity-80 outline-none sm:text-xl
+          focus:ring-orange-500 border-none rounded min-h-[400px]"
         value={value}
         autoFocus
         onChange={(e) => setValue(e.target.value)}

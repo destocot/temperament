@@ -28,7 +28,10 @@ export const UserBtn = async () => {
         <p className="font-semibold">
           {user.given_name} {user.family_name}
         </p>
-        <LogoutLink className="text-sm text-gray-500 transition hover:text-gray-700">
+        <LogoutLink
+          className="text-sm text-gray-500 transition hover:text-gray-700"
+          postLogoutRedirectURL="/"
+        >
           Log out
         </LogoutLink>
       </div>

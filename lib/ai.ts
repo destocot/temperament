@@ -60,7 +60,7 @@ export const evaluate = async (content: string) => {
     const res = await chain.invoke({ content });
     const parsedRes = schema.safeParse(res);
     if (parsedRes.success) {
-      console.log(parsedRes.data);
+      // console.log(parsedRes.data);
       return parsedRes.data;
     }
   } catch (err) {
@@ -68,7 +68,6 @@ export const evaluate = async (content: string) => {
   }
 };
 
-// TODO: refactor with mongodb vector search
 export const qa = async (
   question: string,
   records: Array<Pick<JournalRecord, "id" | "content" | "createdAt">>,
