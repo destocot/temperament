@@ -14,15 +14,8 @@ export const createNewRecord = async () => {
     return data.data;
   }
 };
-let isUpdating = false;
 
 export const updateRecord = async (id: string, content: string) => {
-  if (isUpdating) {
-    return; // Abort if update is already in progress
-  }
-
-  isUpdating = true;
-
   try {
     const res = await fetch(
       new Request(createURL(`/api/journal/${id}`), {
@@ -30,26 +23,21 @@ export const updateRecord = async (id: string, content: string) => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ content: content }),
+        body: JSON.stringify({ content }),
       }),
     );
 
     if (res.ok) {
       const data = await res.json();
-      return data.data;
+      if (data.message) return data.message;
+      if (data.data) return data.data;
     }
-  } finally {
-    isUpdating = false;
+  } catch (err) {
+    throw err;
   }
 };
 
 export const askQuestion = async (question: string) => {
-  if (isUpdating) {
-    return; // Abort if update is already in progress
-  }
-
-  isUpdating = true;
-
   try {
     const res = await fetch(
       new Request(createURL(`/api/question`), {
@@ -70,7 +58,5 @@ export const askQuestion = async (question: string) => {
     }
   } catch (err) {
     throw err;
-  } finally {
-    isUpdating = false;
   }
 };

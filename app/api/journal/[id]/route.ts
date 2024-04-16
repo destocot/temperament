@@ -5,7 +5,7 @@ import prisma from "@/lib/prisma";
 
 export async function PATCH(
   req: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: { id: string } },
 ) {
   const { id: userId } = await getUserIdFromKindeId();
 
@@ -14,7 +14,14 @@ export async function PATCH(
   const updatedRecord = await prisma.journalRecord.update({
     where: { id_userId: { id: params.id, userId } },
     data: { content },
+    select: { id: true, content: true },
   });
+
+  if (updatedRecord.content.length < 30) {
+    return NextResponse.json({
+      message: "Please write a bit more to get a better evaluation.",
+    });
+  }
 
   const evaluation = await evaluate(updatedRecord.content);
 
