@@ -8,15 +8,7 @@ export const Nav = () => {
 
   return (
     <div className="h-[50px] border-b border-orange-500/50">
-      <ul className="mx-auto flex h-full items-center justify-center gap-5">
-        <li
-          className={cn({
-            "opacity-50": pathname === "/",
-            "transition hover:text-orange-500": pathname !== "/",
-          })}
-        >
-          <Link href="/">Home</Link>
-        </li>
+      <ul className="mx-auto flex h-full items-center justify-center gap-7">
         <li
           className={cn({
             "opacity-50": pathname === "/journal",

@@ -6,6 +6,7 @@ import { notFound } from "next/navigation";
 import { ArrowBigLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Evaluation } from "@/components/evaluation";
+import { DeleteRecordBtn } from "@/components/delete-recod-btn";
 
 const getRecord = async (id: string) => {
   const { id: userId } = await getUserIdFromKindeId();
@@ -34,6 +35,7 @@ export default async function JournalRecordPage({ params }: any) {
 
         <Editor record={record} />
       </div>
+      <DeleteRecordBtn recordId={record.id} />
     </main>
   );
 }

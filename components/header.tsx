@@ -6,7 +6,7 @@ export const Header = () => {
     <div className="h-[150px] border-b border-orange-500/50 sm:h-[100px]">
       <div className="mx-auto flex h-full max-w-7xl flex-col items-center justify-between p-5 sm:flex-row">
         <Link
-          href="/journal"
+          href="/"
           className="text-4xl font-bold uppercase tracking-tight lg:text-5xl"
         >
           t•em•per•ament
